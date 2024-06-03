@@ -4,18 +4,24 @@ import { WeatherData } from "./types/WeatherData";
 
 function App() {
     const [data, setData] = useState<WeatherData | null>(null);
+    const [error, setError] = useState<string>("");
 
     useEffect(() => {
         const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
         const fetchWeatherData = async (
             latitude: number,
             longitude: number
         ) => {
-            const response = await fetch(
-                `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&aqi=no`
-            );
-            const weatherData: WeatherData = await response.json();
-            setData(weatherData);
+            try {
+                const response = await fetch(
+                    `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&aqi=no`
+                );
+                const weatherData: WeatherData = await response.json();
+                setData(weatherData);
+            } catch (error) {
+                if (error instanceof Error) setError(error.message);
+            }
         };
 
         const getUserLocation = () => {
@@ -26,6 +32,8 @@ function App() {
                         position.coords.longitude
                     );
                 });
+            } else {
+                setError("Geolocation is not supported by this browser");
             }
         };
 
@@ -35,12 +43,14 @@ function App() {
     return (
         <>
             <h1>Weather App</h1>
-            {data ? (
+            {error ? (
+                <p>{error}</p>
+            ) : data ? (
                 <div>
-                    <h2>
+                    <h3>
                         {data.location.name}, {data.location.region},{" "}
                         {data.location.country}
-                    </h2>
+                    </h3>
                     <p>
                         Temperature: {data.current.temp_c}°C (
                         {data.current.temp_f}°F)
