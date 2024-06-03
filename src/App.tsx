@@ -5,6 +5,7 @@ import { WeatherData } from "./types/WeatherData";
 function App() {
     const [data, setData] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string>("");
+    const [greeting, setGreeting] = useState<string>("");
 
     useEffect(() => {
         const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -24,6 +25,14 @@ function App() {
             }
         };
 
+        const getGreetingMessage = () => {
+            // TODO: Add an icon if is morning, afternoon or evening.
+            const currentHour = new Date().getHours();
+            if (currentHour < 12) return "Good Morning!";
+            if (currentHour < 18) return "Good Afternoon!";
+            return "Good Evening!";
+        };
+
         const getUserLocation = () => {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -31,6 +40,7 @@ function App() {
                         position.coords.latitude,
                         position.coords.longitude
                     );
+                    setGreeting(getGreetingMessage());
                 });
             } else {
                 setError("Geolocation is not supported by this browser");
@@ -42,11 +52,12 @@ function App() {
 
     return (
         <>
-            <h1>Weather App</h1>
+            {/* <h1>Weather App</h1> */}
             {error ? (
                 <p>{error}</p>
             ) : data ? (
                 <div>
+                    <h2>{greeting}</h2>
                     <h3>
                         {data.location.name}, {data.location.region},{" "}
                         {data.location.country}
