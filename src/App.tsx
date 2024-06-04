@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Weather from "./components/Weather/Weather";
+import Intro from "./components/Intro/Intro";
 import { WeatherData } from "./types/WeatherData";
 
 function App() {
@@ -20,13 +22,13 @@ function App() {
                 );
                 const weatherData: WeatherData = await response.json();
                 setData(weatherData);
+                console.log(weatherData);
             } catch (error) {
                 if (error instanceof Error) setError(error.message);
             }
         };
 
         const getGreetingMessage = () => {
-            // TODO: Add an icon if is morning, afternoon or evening.
             const currentHour = new Date().getHours();
             if (currentHour < 12) return "Good Morning!";
             if (currentHour < 18) return "Good Afternoon!";
@@ -50,58 +52,17 @@ function App() {
         getUserLocation();
     }, []);
 
+    // TODO: Add a spinner component
+    if (!data) return "Loading...";
     return (
         <>
-            {/* <h1>Weather App</h1> */}
-            {error ? (
-                <p>{error}</p>
-            ) : data ? (
-                <div>
-                    <h2>{greeting}</h2>
-                    <h3>
-                        {data.location.name}, {data.location.region},{" "}
-                        {data.location.country}
-                    </h3>
-                    <p>
-                        Temperature: {data.current.temp_c}°C (
-                        {data.current.temp_f}°F)
-                    </p>
-                    <p>Condition: {data.current.condition.text}</p>
-                    <img
-                        src={data.current.condition.icon}
-                        alt={data.current.condition.text}
-                    />
-                    <p>
-                        Wind: {data.current.wind_mph} mph (
-                        {data.current.wind_kph} kph) {data.current.wind_dir}
-                    </p>
-                    <p>Humidity: {data.current.humidity}%</p>
-                    <p>
-                        Pressure: {data.current.pressure_mb} mb (
-                        {data.current.pressure_in} in)
-                    </p>
-                    <p>
-                        Precipitation: {data.current.precip_mm} mm (
-                        {data.current.precip_in} in)
-                    </p>
-                    <p>Cloud Cover: {data.current.cloud}%</p>
-                    <p>
-                        Feels Like: {data.current.feelslike_c}°C (
-                        {data.current.feelslike_f}°F)
-                    </p>
-                    <p>
-                        Visibility: {data.current.vis_km} km (
-                        {data.current.vis_miles} miles)
-                    </p>
-                    <p>UV Index: {data.current.uv}</p>
-                    <p>
-                        Gust: {data.current.gust_mph} mph (
-                        {data.current.gust_kph} kph)
-                    </p>
-                </div>
-            ) : (
-                <p>Loading...</p>
-            )}
+            <Intro
+                greeting={greeting}
+                name={data.location.name}
+                region={data.location.region}
+                country={data.location.country}
+            />
+            <Weather data={data} error={error} />
         </>
     );
 }

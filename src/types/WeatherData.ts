@@ -1,4 +1,3 @@
-// src/types/WeatherData.ts
 export interface WeatherData {
     location: {
         name: string;
