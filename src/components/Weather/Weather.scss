@@ -1,18 +1,15 @@
 .weather-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     flex-direction: column;
     gap: 20px;
-    max-width: 800px;
-    // margin: 40px auto;
 
     .weather {
         flex: 1;
         border-radius: 10px;
         box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.1);
         background-color: rgba(255, 255, 255, 0.15);
-        min-width: 250px;
         padding: 20px;
         color: #fff;
         backdrop-filter: blur(10px);
@@ -24,16 +21,6 @@
         &__data {
             text-align: center;
         }
-
-        // &__greeting {
-        //     font-size: 1.9rem;
-        //     margin-bottom: 10px;
-        // }
-
-        // &__location {
-        //     font-size: 1.4rem;
-        //     margin-bottom: 20px;
-        // }
 
         &__icon {
             width: 70px;
@@ -59,8 +46,7 @@
 
 @media screen and (min-width: 760px) {
     .weather-container {
-        display: flex;
-        align-items: normal;
+        align-items: stretch;
         flex-direction: row;
     }
 }
