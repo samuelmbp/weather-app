@@ -5,6 +5,7 @@ import { WeatherData } from "./types/WeatherData";
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
 import "./App.scss";
+import TodaysGoal from "./components/TodaysGoal/TodaysGoal";
 
 interface Todo {
     text: string;
@@ -86,6 +87,7 @@ function App() {
                 country={data.location.country}
             />
             <Weather data={data} error={error} />
+            <TodaysGoal />
             <TodoForm addTodo={addTodo} />
             <TodoList
                 todos={todos}

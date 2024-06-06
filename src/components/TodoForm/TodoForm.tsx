@@ -18,18 +18,21 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
     };
 
     return (
-        <form className="todo-form" onSubmit={handleSubmit}>
-            <input
-                className="todo-form__input"
-                type="text"
-                value={todo}
-                onChange={(e) => setTodo(e.target.value)}
-                placeholder="Add a new todo"
-            />
-            <button className="todo-form__button" type="submit">
-                Add Todo
-            </button>
-        </form>
+        <>
+            {/* <h2>What is your main goal for today?</h2> */}
+            <form className="todo-form" onSubmit={handleSubmit}>
+                <input
+                    className="todo-form__input"
+                    type="text"
+                    value={todo}
+                    onChange={(e) => setTodo(e.target.value)}
+                    placeholder="Add a new todo"
+                />
+                <button className="todo-form__button" type="submit">
+                    Add Todo
+                </button>
+            </form>
+        </>
     );
 };
 

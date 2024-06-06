@@ -1,7 +1,15 @@
 .intro {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        // flex-direction: row;
+        // align-items: center;
+        // justify-content: space-between;
+    }
+
     &__greeting {
         font-size: 2.2rem;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     &__location {
@@ -12,6 +20,12 @@
 
 @media screen and (min-width: 768px) {
     .intro {
+        &__container {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         &__greeting {
             font-size: 2.4rem;
         }
