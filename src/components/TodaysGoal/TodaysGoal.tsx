@@ -1,6 +1,11 @@
+import { Todo } from "../../types/todo";
 import "./TodaysGoal.scss";
 
-const TodaysGoal = () => {
+interface TodaysGoalProps {
+    todos: Todo[];
+}
+
+const TodaysGoal = ({ todos }: TodaysGoalProps) => {
     return (
         <div className="todays-goal">
             <h2 className="todays-goal__heading">
@@ -10,7 +15,16 @@ const TodaysGoal = () => {
                 When you wake up in the morning you have two choices: go back to
                 sleep, or wake up and chase those dreams.
             </p>
-            <h2>Todos</h2>
+            {todos.length > 0 ? (
+                <h2 className="todays-goal__todo-heading">
+                    Todos{" "}
+                    <span className="todays-goal__todo-length">
+                        ({todos.length})
+                    </span>
+                </h2>
+            ) : (
+                <h2 className="todays-goal__todo-heading">Todos</h2>
+            )}
         </div>
     );
 };

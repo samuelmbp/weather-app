@@ -7,11 +7,7 @@ import TodoList from "./components/TodoList/TodoList";
 import "./App.scss";
 import TodaysGoal from "./components/TodaysGoal/TodaysGoal";
 import Spinner from "./components/Spinner/Spinner";
-
-interface Todo {
-    text: string;
-    isCompleted: boolean;
-}
+import { Todo } from "./types/todo";
 
 function App() {
     const [data, setData] = useState<WeatherData | null>(null);
@@ -85,9 +81,7 @@ function App() {
         if (storedTodos) {
             try {
                 const parsedTodos = JSON.parse(storedTodos);
-                console.log("Loaded todos from localStorage:", parsedTodos);
                 setTodos(parsedTodos);
-                console.log("Loaded todos from localStorage:", parsedTodos);
             } catch (error) {
                 console.error(
                     "Failed to parse todos from localStorage:",
@@ -98,9 +92,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        console.log("Saving todos to localStorage:", todos);
         localStorage.setItem("todos", JSON.stringify(todos));
-        console.log("Saving todos to localStorage:", todos);
     }, [todos]);
 
     if (!data) return <Spinner />;
@@ -113,7 +105,7 @@ function App() {
                 country={data.location.country}
             />
             <Weather data={data} error={error} />
-            <TodaysGoal />
+            <TodaysGoal todos={todos} />
             <TodoForm addTodo={addTodo} />
             <TodoList
                 todos={todos}

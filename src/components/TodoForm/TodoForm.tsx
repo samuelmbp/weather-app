@@ -19,7 +19,6 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
 
     return (
         <>
-            {/* <h2>What is your main goal for today?</h2> */}
             <form className="todo-form" onSubmit={handleSubmit}>
                 <input
                     className="todo-form__input"
