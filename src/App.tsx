@@ -6,6 +6,7 @@ import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
 import "./App.scss";
 import TodaysGoal from "./components/TodaysGoal/TodaysGoal";
+import Spinner from "./components/Spinner/Spinner";
 
 interface Todo {
     text: string;
@@ -77,7 +78,7 @@ function App() {
     };
 
     // TODO: Add a spinner component
-    if (!data) return "Loading...";
+    if (!data) return <Spinner />;
     return (
         <>
             <Intro
