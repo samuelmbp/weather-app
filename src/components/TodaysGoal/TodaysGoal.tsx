@@ -10,6 +10,7 @@ const TodaysGoal = () => {
                 When you wake up in the morning you have two choices: go back to
                 sleep, or wake up and chase those dreams.
             </p>
+            <h2>Todos</h2>
         </div>
     );
 };

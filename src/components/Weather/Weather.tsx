@@ -19,11 +19,10 @@ const Weather = ({ data, error }: WeatherProps) => {
                 ) : data ? (
                     <div className="weather__data">
                         <p className="weather__temperature">
-                            Current Temperature: {data.current.temp_c}°C (
-                            {data.current.temp_f}°F)
+                            {data.current.temp_c}°C ({data.current.temp_f}°F)
                         </p>
                         <p className="weather__condition">
-                            Condition: {data.current.condition.text}
+                            {data.current.condition.text}
                         </p>
                         <img
                             className="weather__icon"
@@ -37,10 +36,6 @@ const Weather = ({ data, error }: WeatherProps) => {
                         <p className="weather__humidity">
                             Humidity: {data.current.humidity}%
                         </p>
-                        <p className="weather__pressure">
-                            Pressure: {data.current.pressure_mb} mb (
-                            {data.current.pressure_in} in)
-                        </p>
                     </div>
                 ) : (
                     <p className="weather__loading">Loading...</p>
@@ -51,6 +46,10 @@ const Weather = ({ data, error }: WeatherProps) => {
                     <p className="weather__error">{error}</p>
                 ) : data ? (
                     <div className="weather__data">
+                        <p className="weather__pressure">
+                            Pressure: {data.current.pressure_mb} mb (
+                            {data.current.pressure_in} in)
+                        </p>
                         <p className="weather__precipitation">
                             Precipitation: {data.current.precip_mm} mm (
                             {data.current.precip_in} in)

@@ -30,6 +30,11 @@
             margin-bottom: 20px;
         }
 
+        &__temperature {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
         &__temperature,
         &__condition,
         &__wind,
@@ -50,5 +55,11 @@
     .weather-container {
         align-items: stretch;
         flex-direction: row;
+
+        .weather {
+            &__temperature {
+                font-size: 26px;
+            }
+        }
     }
 }
