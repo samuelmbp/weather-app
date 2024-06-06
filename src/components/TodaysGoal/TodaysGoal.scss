@@ -1,11 +1,16 @@
 @use "../../styles/variables" as *;
 
 .todays-goal {
-    max-width: 500px;
-    border-bottom: 1px solid $color-white;
+    max-width: 600px;
     margin-top: 80px;
 
     &__heading {
         margin: 20px 0;
+    }
+
+    &__quote {
+        margin: 20px 0;
+        border-left: 2px solid $color-white;
+        padding-left: 10px;
     }
 }
