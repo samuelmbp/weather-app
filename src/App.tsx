@@ -27,7 +27,8 @@ function App() {
         ) => {
             try {
                 const response = await fetch(
-                    `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&aqi=no`
+                    // `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&aqi=no`
+                    `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&days=1&aqi=no&alerts=no`
                 );
                 const weatherData: WeatherData = await response.json();
                 setData(weatherData);

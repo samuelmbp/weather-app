@@ -10,6 +10,7 @@ interface WeatherProps {
 
 const Weather = ({ data, error }: WeatherProps) => {
     // TODO: Use object destructuring for data!
+    console.log(data?.forecast.forecastday);
 
     return (
         <div className="weather-container">
@@ -30,50 +31,51 @@ const Weather = ({ data, error }: WeatherProps) => {
                             alt={data.current.condition.text}
                         />
                         <p className="weather__wind">
-                            Wind: {data.current.wind_mph} mph (
+                            Wind {data.current.wind_mph} mph (
                             {data.current.wind_kph} kph) {data.current.wind_dir}
                         </p>
                         <p className="weather__humidity">
-                            Humidity: {data.current.humidity}%
+                            Humidity {data.current.humidity}%
                         </p>
+                        <div className="weather__astro">
+                            <p className="weather__astro-sunrise bold">
+                                Sunrise{" "}
+                                {data?.forecast.forecastday[0].astro.sunrise}
+                            </p>
+                            <p className="weather__astro-sunset bold">
+                                Sunset{" "}
+                                {data?.forecast.forecastday[0].astro.sunset}
+                            </p>
+                        </div>
                     </div>
                 ) : (
                     <p className="weather__loading">Loading...</p>
                 )}
             </div>
+
             <div className="weather">
-                {error ? (
-                    <p className="weather__error">{error}</p>
-                ) : data ? (
-                    <div className="weather__data">
-                        <p className="weather__pressure">
-                            Pressure: {data.current.pressure_mb} mb (
-                            {data.current.pressure_in} in)
-                        </p>
-                        <p className="weather__precipitation">
-                            Precipitation: {data.current.precip_mm} mm (
-                            {data.current.precip_in} in)
-                        </p>
-                        <p className="weather__cloud-cover">
-                            Cloud Cover: {data.current.cloud}%
-                        </p>
-                        <p className="weather__feels-like">
-                            Feels Like: {data.current.feelslike_c}°C (
-                            {data.current.feelslike_f}°F)
-                        </p>
-                        <p className="weather__visibility">
-                            Visibility: {data.current.vis_km} km (
-                            {data.current.vis_miles} miles)
-                        </p>
-                        <p className="weather__uv-index">
-                            UV Index: {data.current.uv}
-                        </p>
-                        <p className="weather__gust">
-                            Gust: {data.current.gust_mph} mph (
-                            {data.current.gust_kph} kph)
-                        </p>
-                    </div>
-                ) : null}
+                <h2 className="weather__title">Hourly Forecast</h2>
+                <div className="weather__hourly-forecast">
+                    {data?.forecast.forecastday[0].hour.map(
+                        (hourData, index) => (
+                            <div className="weather__hour" key={index}>
+                                <p className="weather__hour-time">
+                                    {hourData.time.split(" ")[1]}
+                                </p>
+                                <div className="weather__hour-container">
+                                    <img
+                                        className="weather__hour-icon"
+                                        src={hourData.condition.icon}
+                                        alt={hourData.condition.text}
+                                    />
+                                    <span className="weather__hour-temp">
+                                        {hourData.temp_c}°C
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                    )}
+                </div>
             </div>
         </div>
     );
