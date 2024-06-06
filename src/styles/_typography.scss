@@ -1,6 +1,12 @@
+@use "./variables" as *;
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+* {
+    font-family: "Nunito", sans-serif;
+}
+
 body {
-    height: 100vh;
+    min-height: 100vh;
     background-image: url("./assets/hero.jpg");
     background-size: cover;
     background-position: center;
@@ -10,6 +16,4 @@ body {
     padding: 20px;
     max-width: 1140px;
     margin: 0 auto;
-
-    font-family: "Nunito", sans-serif;
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import Weather from "./components/Weather/Weather";
 import Intro from "./components/Intro/Intro";
 import { WeatherData } from "./types/WeatherData";
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
+import "./App.scss";
 
 interface Todo {
     text: string;
