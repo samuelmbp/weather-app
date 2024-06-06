@@ -10,6 +10,7 @@ interface TodoListProps {
 const TodoList = ({ todos, completeTodo, removeTodo }: TodoListProps) => {
     return (
         <div className="todo-list">
+            <h2>Todos</h2>
             {todos.map((todo, index) => (
                 <TodoItem
                     key={index}
