@@ -17,7 +17,10 @@ function App() {
     const [data, setData] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string>("");
     const [greeting, setGreeting] = useState<string>("");
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const [todos, setTodos] = useState<Todo[]>(() => {
+        const storedTodos = localStorage.getItem("todos");
+        return storedTodos ? JSON.parse(storedTodos) : [];
+    });
 
     useEffect(() => {
         const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -77,7 +80,29 @@ function App() {
         setTodos(newTodos);
     };
 
-    // TODO: Add a spinner component
+    useEffect(() => {
+        const storedTodos = localStorage.getItem("todos");
+        if (storedTodos) {
+            try {
+                const parsedTodos = JSON.parse(storedTodos);
+                console.log("Loaded todos from localStorage:", parsedTodos);
+                setTodos(parsedTodos);
+                console.log("Loaded todos from localStorage:", parsedTodos);
+            } catch (error) {
+                console.error(
+                    "Failed to parse todos from localStorage:",
+                    error
+                );
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log("Saving todos to localStorage:", todos);
+        localStorage.setItem("todos", JSON.stringify(todos));
+        console.log("Saving todos to localStorage:", todos);
+    }, [todos]);
+
     if (!data) return <Spinner />;
     return (
         <>
