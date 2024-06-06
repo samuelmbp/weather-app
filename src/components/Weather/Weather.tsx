@@ -1,8 +1,7 @@
 import "./Weather.scss";
 import { WeatherData } from "../../types/WeatherData";
+import { useEffect, useState } from "react";
 
-// USE THE GUARDIAN NEWS OPEN API TO DISPLAY NEWS TO THE USER ALONGSIDE THE WEATHER
-// OR INSTEAD OF NEWS, CREATE A TODO LIST (IAIA)
 interface WeatherProps {
     data: WeatherData | null;
     error: string;
@@ -10,7 +9,26 @@ interface WeatherProps {
 
 const Weather = ({ data, error }: WeatherProps) => {
     // TODO: Use object destructuring for data!
-    console.log(data?.forecast.forecastday);
+    const [currentHour, setCurrentHour] = useState(
+        new Date()
+            .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            .slice(0, 2) + ":00"
+    );
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const newCurrentHour =
+                new Date()
+                    .toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    })
+                    .slice(0, 2) + ":00";
+            setCurrentHour(newCurrentHour);
+        }, 60_000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="weather-container">
@@ -62,7 +80,14 @@ const Weather = ({ data, error }: WeatherProps) => {
                                 <p className="weather__hour-time">
                                     {hourData.time.split(" ")[1]}
                                 </p>
-                                <div className="weather__hour-container">
+                                <div
+                                    className={`weather__hour-container ${
+                                        currentHour ===
+                                        hourData.time.split(" ")[1]
+                                            ? "weather__hour--current"
+                                            : ""
+                                    }`}
+                                >
                                     <img
                                         className="weather__hour-icon"
                                         src={hourData.condition.icon}
