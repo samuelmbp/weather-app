@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# Weather & Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application that provides current weather, hourly forecasts, daily forecasts, and a todo list functionality. This app features details such as temperature, wind speed, humidity, and the chance of rain, along with the ability to manage personal tasks.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to set up the project on your local machine:
 
-## Expanding the ESLint configuration
+1. Clone the repository `git clone https://github.com/samuelmbp/weather-app`
+2. Navigate to the project directory: `cd weather-app`
+3. Install the dependencies: `npm install`
+4. Get a Weather API key at https://www.weatherapi.com/. You'll have to create an account first.
+5. Add the API key to a `.env` file as: `VITE_WEATHER_API_KEY=your_api_key`
+6. Run the application: `npm run dev`
+7. Open the browser and visit http://localhost:5173 to see the app
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+-   Current Weather: Displays the current temperature, weather condition, wind speed, humidity, etc.
+-   Hourly Forecast: Provides weather information for each hour of the day, including temperature and chance of rain.
+-   Daily Forecast: Shows a summary of the weather for the next few days.
+-   Todo List: Allows users to create and delete personal tasks.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Usage
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Once the app is running, users can:
+
+-   View Current Weather: See the current temperature, condition, wind speed, humidity, and more.
+-   Check Hourly Forecast: Browse the weather forecast for each hour, including temperature and chance of rain.
+-   Daily Forecast: Review the weather outlook for the upcoming days.
+-   Manage Todos: Create and delete personal tasks to keep track of things to do.
+
+## Technologies Used
+
+-   React
+-   TypeScript
+-   SCSS
+-   Weather API: For fetching weather data.
+    -   https://www.weatherapi.com/docs/
