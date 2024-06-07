@@ -44,10 +44,13 @@
             padding: 6px;
 
             &.weather__hour--current {
-                // background-color: rgba($color: tomato, $alpha: 1);
-                border: 3px solid tomato;
-                // border: 3px solid rgba($color: tomato, $alpha: 0.6);
+                // border: 3px solid tomato;
+                background-color: #e88d67;
             }
+        }
+
+        &__hour {
+            height: 100px;
         }
 
         &__hour-icon {
@@ -59,6 +62,21 @@
             font-weight: bold;
             text-align: center;
             margin-bottom: 4px;
+        }
+
+        &__container-percentage {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__hour-temp,
+        &__hour-rain {
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        &__hour-rain {
+            font-size: 14px;
         }
 
         &__error {
@@ -96,7 +114,7 @@
     }
 }
 
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1024px) {
     .weather-container {
         align-items: stretch;
         flex-direction: row;
@@ -111,6 +129,11 @@
                 flex-direction: row;
                 gap: 10px;
                 margin: 50px 0;
+            }
+
+            &__hour {
+                width: 130px;
+                height: 120px;
             }
 
             &__title {

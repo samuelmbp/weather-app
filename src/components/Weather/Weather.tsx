@@ -1,6 +1,7 @@
 import "./Weather.scss";
 import { WeatherData } from "../../types/WeatherData";
 import { useEffect, useState } from "react";
+import rainIcon from "../../assets/rain-icon.png";
 
 interface WeatherProps {
     data: WeatherData | null;
@@ -13,6 +14,12 @@ const Weather = ({ data, error }: WeatherProps) => {
         new Date()
             .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
             .slice(0, 2) + ":00"
+    );
+
+    console.log(
+        data?.forecast.forecastday.map((forecast) =>
+            console.log(forecast.day.daily_will_it_rain)
+        )
     );
 
     useEffect(() => {
@@ -93,9 +100,24 @@ const Weather = ({ data, error }: WeatherProps) => {
                                         src={hourData.condition.icon}
                                         alt={hourData.condition.text}
                                     />
-                                    <span className="weather__hour-temp">
-                                        {hourData.temp_c}°C
-                                    </span>
+                                    <div className="weather__container-percentage">
+                                        <span className="weather__hour-temp">
+                                            {
+                                                hourData.temp_c
+                                                    .toString()
+                                                    .split(".")[0]
+                                            }
+                                            °C
+                                        </span>
+                                        <p className="weather__hour-rain">
+                                            <img
+                                                className=""
+                                                src={rainIcon}
+                                                alt="Rain Icon"
+                                            />{" "}
+                                            {hourData.chance_of_rain}%
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         )
