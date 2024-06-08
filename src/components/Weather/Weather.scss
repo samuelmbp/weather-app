@@ -44,8 +44,8 @@
             padding: 6px;
 
             &.weather__hour--current {
-                // border: 3px solid tomato;
-                background-color: #e88d67;
+                // background-color: #0056b3;
+                background-color: tomato;
             }
         }
 
@@ -80,7 +80,11 @@
         }
 
         &__error {
+            margin: 45px 0;
             color: $color-red;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
         }
 
         &__data {

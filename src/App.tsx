@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import Weather from "./components/Weather/Weather";
+import "./App.scss";
 import Intro from "./components/Intro/Intro";
-import { WeatherData } from "./types/WeatherData";
+import SearchCity from "./components/SearchCity/SearchCity";
+import Spinner from "./components/Spinner/Spinner";
+import TodaysGoal from "./components/TodaysGoal/TodaysGoal";
 import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/TodoList/TodoList";
-import "./App.scss";
-import TodaysGoal from "./components/TodaysGoal/TodaysGoal";
-import Spinner from "./components/Spinner/Spinner";
+import Weather from "./components/Weather/Weather";
 import { Todo } from "./types/todo";
+import { WeatherData } from "./types/WeatherData";
 
-function App() {
+const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+const App = () => {
     const [data, setData] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string>("");
     const [greeting, setGreeting] = useState<string>("");
@@ -18,25 +21,26 @@ function App() {
         return storedTodos ? JSON.parse(storedTodos) : [];
     });
 
-    useEffect(() => {
-        const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+    const fetchWeatherData = async (query: string) => {
+        try {
+            const response = await fetch(
+                `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${query}&days=1&aqi=no&alerts=no`
+            );
 
-        const fetchWeatherData = async (
-            latitude: number,
-            longitude: number
-        ) => {
-            try {
-                const response = await fetch(
-                    // `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&aqi=no`
-                    `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&days=1&aqi=no&alerts=no`
+            if (!response.ok) {
+                throw new Error(
+                    "City not found. Please enter a valid town or city name."
                 );
-                const weatherData: WeatherData = await response.json();
-                setData(weatherData);
-            } catch (error) {
-                if (error instanceof Error) setError(error.message);
             }
-        };
+            const weatherData: WeatherData = await response.json();
+            setData(weatherData);
+            setError("");
+        } catch (error) {
+            if (error instanceof Error) setError(error.message);
+        }
+    };
 
+    useEffect(() => {
         const getGreetingMessage = () => {
             const currentHour = new Date().getHours();
             if (currentHour < 12) return "Good Morning!";
@@ -47,10 +51,8 @@ function App() {
         const getUserLocation = () => {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                    fetchWeatherData(
-                        position.coords.latitude,
-                        position.coords.longitude
-                    );
+                    const query = `${position.coords.latitude},${position.coords.longitude}`;
+                    fetchWeatherData(query);
                     setGreeting(getGreetingMessage());
                 });
             } else {
@@ -105,6 +107,7 @@ function App() {
                 region={data.location.region}
                 country={data.location.country}
             />
+            <SearchCity onSearch={fetchWeatherData} />
             <Weather data={data} error={error} />
             <TodaysGoal todos={todos} />
             <TodoForm addTodo={addTodo} />
@@ -115,6 +118,6 @@ function App() {
             />
         </>
     );
-}
+};
 
 export default App;

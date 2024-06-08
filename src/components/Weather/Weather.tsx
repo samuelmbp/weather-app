@@ -16,12 +16,6 @@ const Weather = ({ data, error }: WeatherProps) => {
             .slice(0, 2) + ":00"
     );
 
-    console.log(
-        data?.forecast.forecastday.map((forecast) =>
-            console.log(forecast.day.daily_will_it_rain)
-        )
-    );
-
     useEffect(() => {
         const interval = setInterval(() => {
             const newCurrentHour =
@@ -45,7 +39,8 @@ const Weather = ({ data, error }: WeatherProps) => {
                 ) : data ? (
                     <div className="weather__data">
                         <p className="weather__temperature">
-                            {data.current.temp_c}°C ({data.current.temp_f}°F)
+                            {data.current.temp_c.toString().split(".")[0]}°C (
+                            {data.current.temp_f}°F)
                         </p>
                         <p className="weather__condition">
                             {data.current.condition.text}
