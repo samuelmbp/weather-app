@@ -40,28 +40,28 @@ const App = () => {
         }
     };
 
-    useEffect(() => {
-        const getGreetingMessage = () => {
-            const currentHour = new Date().getHours();
-            if (currentHour < 12) return "Good Morning!";
-            if (currentHour < 18) return "Good Afternoon!";
-            return "Good Evening!";
-        };
+    const getGreetingMessage = () => {
+        const currentHour = new Date().getHours();
+        if (currentHour < 12) return "Good Morning!";
+        if (currentHour < 18) return "Good Afternoon!";
+        return "Good Evening!";
+    };
 
-        const getUserLocation = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const query = `${position.coords.latitude},${position.coords.longitude}`;
-                    fetchWeatherData(query);
-                    setGreeting(getGreetingMessage());
-                });
-            } else {
-                setError("Geolocation is not supported by this browser");
-            }
-        };
+    const getUserLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const query = `${position.coords.latitude},${position.coords.longitude}`;
+                fetchWeatherData(query);
+                setGreeting(getGreetingMessage());
+            });
+        } else {
+            setError("Geolocation is not supported by this browser");
+        }
+    };
 
-        getUserLocation();
-    }, []);
+    const handleSearchCity = (city: string) => {
+        fetchWeatherData(city);
+    };
 
     const addTodo = (text: string) => {
         const newTodos = [...todos, { text, isCompleted: false }];
@@ -78,6 +78,10 @@ const App = () => {
         const newTodos = todos.filter((_, i) => i !== index);
         setTodos(newTodos);
     };
+
+    useEffect(() => {
+        getUserLocation();
+    }, []);
 
     useEffect(() => {
         const storedTodos = localStorage.getItem("todos");
@@ -107,7 +111,10 @@ const App = () => {
                 region={data.location.region}
                 country={data.location.country}
             />
-            <SearchCity onSearch={fetchWeatherData} />
+            <SearchCity
+                onSearch={handleSearchCity}
+                onGetCurrentLocation={getUserLocation}
+            />
             <Weather data={data} error={error} />
             <TodaysGoal todos={todos} />
             <TodoForm addTodo={addTodo} />

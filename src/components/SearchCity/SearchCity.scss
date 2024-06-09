@@ -1,45 +1,73 @@
-.search-city {
+@use "../../styles/variables" as *;
+
+.search__city-container {
     display: flex;
-    // justify-content: center;
     align-items: center;
-    margin: 20px 0;
 
-    &__input {
-        padding: 10px;
-        font-size: 16px;
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
-        outline: none;
-        border: none;
-        width: 100%;
-    }
+    .search-city {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
 
-    &__button {
-        padding: 9px 20px;
-        // font-size: 16px;
-        border: none;
-        outline: none;
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
-        background-color: #ff6347;
-        color: white;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #f04325;
+        &__input {
+            padding: 10px;
+            font-size: 16px;
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            outline: none;
+            border: none;
+            width: 100%;
         }
-    }
 
-    &__icon {
-        width: 20px;
-        height: 20px;
+        &__button {
+            padding: 9px 20px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            background-color: #ff6347;
+
+            &:hover {
+                background-color: #f04325;
+            }
+        }
+
+        &__location {
+            margin-left: 14px;
+            background-color: rgba($color: $bg-transparent-darker, $alpha: 0.6);
+
+            &.location {
+                padding: 9px 20px;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                border-radius: 12px;
+
+                &:hover {
+                    background-color: rgba($color: $color-black, $alpha: 0.8);
+                }
+            }
+
+            &-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        &__icon {
+            width: 20px;
+            height: 20px;
+        }
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .search-city {
-        &__input {
-            width: 350px;
+    .search__city-container {
+        .search-city {
+            &__input {
+                width: 350px;
+            }
         }
     }
 }

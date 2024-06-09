@@ -1,5 +1,10 @@
-$bg-transparent-dark: rgba(255, 255, 255, 0.1);
 $bg-transparent-light: rgba(255, 255, 255, 0.35);
+$bg-transparent-dark: rgba(255, 255, 255, 0.1);
+$bg-transparent-darker: rgba(
+    $color: #000000,
+    $alpha: 0.3,
+);
+$color-black: #000;
 $color-white: #fff;
 $color-red: #dc3545;
 $bg-todo: #3a7487;
