@@ -25,10 +25,10 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
                     type="text"
                     value={todo}
                     onChange={(e) => setTodo(e.target.value)}
-                    placeholder="Add a new todo"
+                    placeholder="Type your new todo here..."
                 />
                 <button className="todo-form__button" type="submit">
-                    Add Todo
+                    Add Task
                 </button>
             </form>
         </>
