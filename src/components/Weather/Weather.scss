@@ -81,10 +81,12 @@
 
         &__error {
             margin: 45px 0;
+            padding: 10px;
             color: $color-red;
             text-align: center;
             font-weight: bold;
-            font-size: 18px;
+            background-color: rgba($color: $color-white, $alpha: 0.8);
+            border-radius: 6px;
         }
 
         &__data {
